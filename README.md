@@ -26,6 +26,7 @@ You should create a file similar to below called `.github/workflows/limit-org-in
 and push this file to your main branch.
 
 ```yaml
+name: Limit interactions
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
