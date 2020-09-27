@@ -1,3 +1,4 @@
+console.log("Starting...")
 const github = require('@actions/github');
 const core = require('@actions/core');
 
@@ -6,6 +7,7 @@ function validate_limit(limit) {
     core.setFailed(`limit-group must be one of ["existing_users", "contributors_only", "collaborators_only"], you provided: "${limit}"`);
   }
 }
+
 async function run() {
   // This should be a token with access to your repository scoped in as a secret.
   // The YML workflow will need to set github-token with the GitHub Secret Token
@@ -15,6 +17,7 @@ async function run() {
   // If you are using this action to limit interactions at the org level, or for another repo,
   // you must create a personal access token, store it in a GitHub secret, and use that to
   // populate `github-token`. See https://docs.github.com/en/free-pro-team@latest/rest/reference/interactions
+
   const token = core.getInput('github-token');
   const octokit = github.getOctokit(token)
 
@@ -22,7 +25,6 @@ async function run() {
     const limit = core.getInput('limit');
     validate_limit(limit);
 
-    // Defaults are the owner/repo from env var
     var [owner] = process.env.GITHUB_REPOSITORY.split("/");
 
     var inputOwner = core.getInput("owner");
