@@ -44,17 +44,17 @@ jobs:
       - name: Limit interactions
         uses: ./ # Uses an action in the root directory
         with:
-          github-token: ${{ secrets.ORG_TOKEN_GITHUB }}
-          # owner: 'AnotherOwner'
+          github_token: ${{ secrets.ORG_TOKEN_GITHUB }}
+          # org: 'AnotherOwner'
 ```
 
 ### Inputs
 
 | name | value | default | description |
 | ---- | ----- | ------- | ----------- |
-| `github-token` | string | | Token for interacting with GitHub API. You should make a [personal access token](https://github.com/settings/tokens) and use it as the `github-token` input. |
+| `github_token` | string | | Token for interacting with GitHub API. You should make a [personal access token](https://github.com/settings/tokens) and use it as the `github_token` input. |
 | `limit` | string | `existing_users` | Must be one of: `existing_users`, `contributors_only`, or `collaborators_only`. See [API reference](https://docs.github.com/en/free-pro-team@latest/rest/reference/interactions) for more details. |
-| `owner` | string | owner of current repo | Optional, set to a different GitHub organization to limit interactions for that org. |
+| `org` | string | org of current repo | Optional, set to a different GitHub organization to limit interactions for that org. |
 
 ## License
 

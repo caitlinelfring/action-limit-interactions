@@ -16,5 +16,5 @@ jobs:
       - name: Limit interactions
         uses: ./ # Uses an action in the root directory
         with:
-          github-token: ${{ secrets.ORG_TOKEN_GITHUB }}
-          # owner: 'AnotherOwner'
+          github_token: ${{ secrets.ORG_TOKEN_GITHUB }}
+          # org: 'AnotherOwner'

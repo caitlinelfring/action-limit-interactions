@@ -1,4 +1,3 @@
-console.log("Starting...")
 const github = require('@actions/github');
 const core = require('@actions/core');
 
@@ -17,33 +16,30 @@ async function run() {
   // If you are using this action to limit interactions at the org level, or for another repo,
   // you must create a personal access token, store it in a GitHub secret, and use that to
   // populate `github-token`. See https://docs.github.com/en/free-pro-team@latest/rest/reference/interactions
-  console.log("Starting run...")
+  const token = core.getInput('github_token');
+  const octokit = github.getOctokit(token, { previews: ["sombra-preview"] });
 
-  const token = core.getInput('github-token');
-  console.log("got token from input")
-
-  const octokit = github.getOctokit(token)
-  console.log("octokit configured")
   try {
     const limit = core.getInput('limit');
-    console.log("got limit: ", limit)
     validate_limit(limit);
-    console.log("validated limit")
 
-    var [owner] = process.env.GITHUB_REPOSITORY.split("/");
-    console.log(`got owner ${owner}`);
-    var inputOwner = core.getInput("owner");
-    if (inputOwner !== "") {
-      owner = inputOwner;
+    var [org] = process.env.GITHUB_REPOSITORY.split("/");
+    var inputOrg = core.getInput("org");
+    if (inputOrg !== "") {
+      org = inputOrg;
     }
 
     // remove interaction restrictions first in order to reset the 24 hour timer
-    const data = await octokit.interactions.removeRestrictionsForOrg({owner});
-    console.log(data)
+    await octokit.interactions.removeRestrictionsForOrg({ org }).catch(function(err) {
+      core.warning(`error removing org restrictions: ${err}`);
+      throw err;
+    });
 
     // Set org interaction restrictions
-    await octokit.interactions.setRestrictionsForOrg({owner, limit});
-    console.log("done...")
+    await octokit.interactions.setRestrictionsForOrg({ org, limit }).catch(function (err) {
+      core.warning(`error setting org restrictions: ${err}`);
+      throw err;
+    });
   } catch (error) {
     core.setFailed(error.message);
   }

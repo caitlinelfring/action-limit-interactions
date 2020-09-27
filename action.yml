@@ -8,11 +8,11 @@ inputs:
     description: 'Must be one of: existing_users, contributors_only, or collaborators_only'
     required: true
     default: 'existing_users'
-  owner:
-    description: 'Organization owner. Default: current org'
+  org:
+    description: 'GitHub Organization. Default: current org'
     required: false
     default: ''
-  github-token:
+  github_token:
     description: 'GitHub API personal access token with repo scope is needed to control organization interaction limits'
     required: true
     default: ${{ github.token }}
