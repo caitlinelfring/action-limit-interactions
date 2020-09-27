@@ -38,7 +38,8 @@ async function run() {
     }
 
     // remove interaction restrictions first in order to reset the 24 hour timer
-    await octokit.interactions.removeRestrictionsForOrg({owner});
+    const data = await octokit.interactions.removeRestrictionsForOrg({owner});
+    console.log(data)
 
     // Set org interaction restrictions
     await octokit.interactions.setRestrictionsForOrg({owner, limit});
