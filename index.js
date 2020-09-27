@@ -17,16 +17,21 @@ async function run() {
   // If you are using this action to limit interactions at the org level, or for another repo,
   // you must create a personal access token, store it in a GitHub secret, and use that to
   // populate `github-token`. See https://docs.github.com/en/free-pro-team@latest/rest/reference/interactions
+  console.log("Starting run...")
 
   const token = core.getInput('github-token');
-  const octokit = github.getOctokit(token)
+  console.log("got token from input")
 
+  const octokit = github.getOctokit(token)
+  console.log("octokit configured")
   try {
     const limit = core.getInput('limit');
+    console.log("got limit: ", limit)
     validate_limit(limit);
+    console.log("validated limit")
 
     var [owner] = process.env.GITHUB_REPOSITORY.split("/");
-
+    console.log(`got owner ${owner}`);
     var inputOwner = core.getInput("owner");
     if (inputOwner !== "") {
       owner = inputOwner;
@@ -37,7 +42,7 @@ async function run() {
 
     // Set org interaction restrictions
     await octokit.interactions.setRestrictionsForOrg({owner, limit});
-
+    console.log("done...")
   } catch (error) {
     core.setFailed(error.message);
   }
