@@ -17,4 +17,4 @@ jobs:
         uses: ./ # Uses an action in the root directory
         with:
           github_token: ${{ secrets.ORG_TOKEN_GITHUB }}
-          # org: 'AnotherOwner'
+          org: 'get-woke'
