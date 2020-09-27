@@ -1,0 +1,24 @@
+{
+  "name": "action-limit-interactions",
+  "version": "1.0.0",
+  "description": "A GitHub action that will run daily to ensure repository limitations are always enabled. Since GitHub sets a time limit for enabled interaction limits, this GitHub action allows you to always keep interaction limits enabled. This is especially useful for public repos that get spammed.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caitlinelfring/action-limit-interactions.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caitlinelfring/action-limit-interactions/issues"
+  },
+  "homepage": "https://github.com/caitlinelfring/action-limit-interactions#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0"
+  }
+}
