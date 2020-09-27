@@ -1,0 +1,21 @@
+name: 'Limit GitHub Organization Interactions'
+branding:
+  icon: 'user-x'
+  color: 'gray-dark'
+description: 'Limit interactions to your GitHub Organization'
+inputs:
+  limit:
+    description: 'Must be one of: existing_users, contributors_only, or collaborators_only'
+    required: true
+    default: 'existing_users'
+  owner:
+    description: 'Organization owner. Default: current org'
+    required: false
+    default: ''
+  github-token:
+    description: 'GitHub API personal access token with repo scope is needed to control organization interaction limits'
+    required: true
+    default: ${{ github.token }}
+runs:
+  using: 'node12'
+  main: 'index.js'
