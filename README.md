@@ -7,6 +7,18 @@ that get spammed.
 
 Documentation: <https://docs.github.com/en/free-pro-team@latest/rest/reference/interactions>
 
+**NOTE** This action can only be run on a GitHub _organization_. Running this against your
+own GitHub account will fail. It must be a GitHub _organization_, because interaction limitations
+for accounts is not a GitHub feature. It's only a feature for organizations and repos. This
+GitHub action is specific for _organizations_.
+
+If you try to run this on a regular user account, you will see the following error:
+
+```txt
+Warning: error removing org restrictions: HttpError: Not Found
+Error: Not Found
+```
+
 Since this action interacts with the organization interaction limits API, and the built-in
 `GITHUB_TOKEN` provided by the action does not have sufficient permissions, you must create
 a [Personal Access Token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token)
@@ -31,19 +43,15 @@ on:
   schedule:
     # * is a special character in YAML so you have to quote this string
     # Run every day at 00:00, since the limits expire after 24 hours
-    - cron:  '0 0 * * *'
+    - cron: '0 0 * * *'
 
 jobs:
   limit-interactions:
     runs-on: ubuntu-latest
     name: Limit GitHub Organization interactions
     steps:
-      # To use this repository's private action,
-      # you must check out the repository
-      - name: Checkout
-        uses: actions/checkout@v2
       - name: Limit interactions
-        uses: ./ # Uses an action in the root directory
+        uses: caitlinelfring/action-limit-interactions@v1
         with:
           github_token: ${{ secrets.ORG_TOKEN_GITHUB }}
           # org: 'AnotherOwner'
